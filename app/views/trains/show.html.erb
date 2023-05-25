@@ -1,0 +1,29 @@
+<h2 class="text-center mt-4"><%= @train.train_name %></h2>
+
+<table class="table table-bordered table-striped">
+  <thead class='table-dark'>
+    <tr>
+      <th>Station Name</th>
+      <th>Arrival Time</th>
+      <th>Departure Time</th>
+      <% if @current_user.admin? %>
+        <th colspan='3'>Actions</th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @train_stations.each do |ts| %>
+      <tr>
+          <td><%= Station.find(ts.station_id).name %></td>
+          <td><%= ts.arrival_time %></td>
+          <td><%= ts.departure_time %></td>
+          <td><%= link_to 'Edit', edit_train_station_path(ts) if @current_user.admin? %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="mb-3">
+  <%= link_to 'Return to trains listing', trains_path, class: "text-info" %>
+</div>
